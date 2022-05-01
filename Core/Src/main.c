@@ -94,39 +94,37 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   HAL_ADC_Start(&hadc1);
   volatile uint32_t adc_val = 0;
+  int count = 1;
+  int setter = 0;
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  while (HAL_ADC_PollForConversion(&hadc1, 100)!= HAL_OK){}
-	  adc_val = HAL_ADC_GetValue(&hadc1);
-	  if(adc_val > 4000){
-		  HAL_GPIO_WritePin(PI11_OUT_GPIO_Port, PI11_OUT_Pin, SET);
-		  HAL_GPIO_WritePin(PI15_OUT_GPIO_Port, PI15_OUT_Pin, SET);
-		  HAL_GPIO_WritePin(PI18_OUT_GPIO_Port, PI18_OUT_Pin, SET);
-		  HAL_GPIO_WritePin(PI19_OUT_GPIO_Port, PI19_OUT_Pin, SET);
-	  }else if(adc_val > 3000){
-		  HAL_GPIO_WritePin(PI11_OUT_GPIO_Port, PI11_OUT_Pin, RESET);
-		  HAL_GPIO_WritePin(PI15_OUT_GPIO_Port, PI15_OUT_Pin, SET);
-		  HAL_GPIO_WritePin(PI18_OUT_GPIO_Port, PI18_OUT_Pin, SET);
-		  HAL_GPIO_WritePin(PI19_OUT_GPIO_Port, PI19_OUT_Pin, SET);
-	  }else if(adc_val > 2000){
-		  HAL_GPIO_WritePin(PI11_OUT_GPIO_Port, PI11_OUT_Pin, RESET);
-		  HAL_GPIO_WritePin(PI15_OUT_GPIO_Port, PI15_OUT_Pin, RESET);
-		  HAL_GPIO_WritePin(PI18_OUT_GPIO_Port, PI18_OUT_Pin, SET);
-		  HAL_GPIO_WritePin(PI19_OUT_GPIO_Port, PI19_OUT_Pin, SET);
-	  }else if(adc_val > 1000){
-		  HAL_GPIO_WritePin(PI11_OUT_GPIO_Port, PI11_OUT_Pin, RESET);
-		  HAL_GPIO_WritePin(PI15_OUT_GPIO_Port, PI15_OUT_Pin, RESET);
-		  HAL_GPIO_WritePin(PI18_OUT_GPIO_Port, PI18_OUT_Pin, RESET);
-		  HAL_GPIO_WritePin(PI19_OUT_GPIO_Port, PI19_OUT_Pin, SET);
-	  }else {
-		  HAL_GPIO_WritePin(PI11_OUT_GPIO_Port, PI11_OUT_Pin, RESET);
-		  HAL_GPIO_WritePin(PI15_OUT_GPIO_Port, PI15_OUT_Pin, RESET);
-		  HAL_GPIO_WritePin(PI18_OUT_GPIO_Port, PI18_OUT_Pin, RESET);
-		  HAL_GPIO_WritePin(PI19_OUT_GPIO_Port, PI19_OUT_Pin, RESET);
+	  auto state = HAL_GPIO_ReadPin(PI14_IN_GPIO_Port, PI14_IN_Pin) == GPIO_PIN_SET;
+	  if(state == 1){
+		  setter = 1;
 	  }
+	  if(state == 0 && setter == 1){
+		  setter = 0;
+		  count++;
+		  if(count == 3){
+			  count=0;
+		  }
+	  }
+	  if(count == 0){
+		  HAL_GPIO_WritePin(PI15_OUT_GPIO_Port, PI15_OUT_Pin, GPIO_PIN_RESET);
+		  HAL_GPIO_WritePin(PI18_OUT_GPIO_Port, PI18_OUT_Pin, GPIO_PIN_RESET);
+	  }
+	  if(count == 1){
+	  		  HAL_GPIO_WritePin(PI15_OUT_GPIO_Port, PI15_OUT_Pin, GPIO_PIN_SET);
+	  		  HAL_GPIO_WritePin(PI18_OUT_GPIO_Port, PI18_OUT_Pin, GPIO_PIN_RESET);
+	  }
+	  if(count == 2){
+	  		  HAL_GPIO_WritePin(PI15_OUT_GPIO_Port, PI15_OUT_Pin, GPIO_PIN_RESET);
+	  		  HAL_GPIO_WritePin(PI18_OUT_GPIO_Port, PI18_OUT_Pin, GPIO_PIN_SET);
+	  }
+	  HAL_Delay(300);
 
   }
   /* USER CODE END 3 */
