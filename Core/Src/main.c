@@ -125,7 +125,6 @@ int main(void)
 	  		  HAL_GPIO_WritePin(PI15_OUT_GPIO_Port, PI15_OUT_Pin, GPIO_PIN_RESET);
 	  		  HAL_GPIO_WritePin(PI18_OUT_GPIO_Port, PI18_OUT_Pin, GPIO_PIN_SET);
 	  }
-	  HAL_Delay(200);
 
   }
   /* USER CODE END 3 */
