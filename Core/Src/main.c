@@ -104,6 +104,7 @@ int main(void)
 	  auto state = HAL_GPIO_ReadPin(PI14_IN_GPIO_Port, PI14_IN_Pin) == GPIO_PIN_SET;
 	  if(state == 1){
 		  setter = 1;
+		  continue;
 	  }
 	  if(state == 0 && setter == 1){
 		  setter = 0;
