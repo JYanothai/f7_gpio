@@ -94,7 +94,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   HAL_ADC_Start(&hadc1);
   volatile uint32_t adc_val = 0;
-  int count = 0;
+  int count = 1;
   int setter = 0;
   while (1)
   {
