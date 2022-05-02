@@ -118,12 +118,12 @@ int main(void)
 		  HAL_GPIO_WritePin(PI18_OUT_GPIO_Port, PI18_OUT_Pin, GPIO_PIN_RESET);
 	  }
 	  if(count == 1){
-	  		  HAL_GPIO_WritePin(PI15_OUT_GPIO_Port, PI15_OUT_Pin, GPIO_PIN_SET);
-	  		  HAL_GPIO_WritePin(PI18_OUT_GPIO_Port, PI18_OUT_Pin, GPIO_PIN_RESET);
+	  	  HAL_GPIO_WritePin(PI15_OUT_GPIO_Port, PI15_OUT_Pin, GPIO_PIN_SET);
+	          HAL_GPIO_WritePin(PI18_OUT_GPIO_Port, PI18_OUT_Pin, GPIO_PIN_RESET);
 	  }
 	  if(count == 2){
-	  		  HAL_GPIO_WritePin(PI15_OUT_GPIO_Port, PI15_OUT_Pin, GPIO_PIN_RESET);
-	  		  HAL_GPIO_WritePin(PI18_OUT_GPIO_Port, PI18_OUT_Pin, GPIO_PIN_SET);
+	  	  HAL_GPIO_WritePin(PI15_OUT_GPIO_Port, PI15_OUT_Pin, GPIO_PIN_RESET);
+	  	  HAL_GPIO_WritePin(PI18_OUT_GPIO_Port, PI18_OUT_Pin, GPIO_PIN_SET);
 	  }
 
   }
